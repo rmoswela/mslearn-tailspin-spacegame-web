@@ -4,7 +4,12 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- '*'
+  branches:
+    include:
+      - main # build only on main branch
+  paths:
+    exclude:
+      - docs/* # exclude the docs folder
 
 pool:
   vmImage: ubuntu-latest
