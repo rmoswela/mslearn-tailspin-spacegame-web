@@ -52,10 +52,16 @@ steps:
     buildConfiguration: 'Debug'
 
 - template: templates/build.yml
-
-- template: templates/build.yml
   parameters:
     buildConfiguration: 'Release'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run unit tests - $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    arguments: '--no-build --configuration $(buildConfiguration)'
+    publishTestResults: true
+    projects: '**/*.Tests.csproj'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
